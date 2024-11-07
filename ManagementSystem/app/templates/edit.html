@@ -1,0 +1,29 @@
+
+{% extends "layout.html" %}
+
+{% block content %}
+ <div class="container">
+    <div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">修改</h3>
+  </div>
+
+
+  <form method="post">
+    {% csrf_token %}
+  <div class="form-group">
+
+    <label >车牌号</label>
+    <input type="text" class="form-control"  placeholder="车牌号" name="LicensePlate" value="{{ row_object.LicensePlate }}">
+    <label >车牌型号</label>
+    <input type="text" class="form-control"  placeholder="车牌型号" name="VehicleModel" value="{{ row_object.VehicleModel }}">
+    <label >车牌颜色</label>
+    <input type="text" class="form-control"  placeholder="车牌颜色" name="VehicleColor" value="{{ row_object.VehicleColor }}">
+  </div>
+      <button type="submit" class="btn btn-primary">保存</button>
+</form>
+
+</div>
+  </div>
+
+{% endblock %}

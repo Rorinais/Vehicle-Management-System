@@ -1,0 +1,57 @@
+{% extends "list.html" %}
+
+ {% block head %}
+
+  <ul class="nav navbar-nav">
+        <li><a href="/admin/list/">用户信息</a></li>
+        <li><a href="/admin/time/">行车记录</a></li>
+        <li><a href="/show/video/">实时监控</a></li>
+        <li><a href="/admin/pay/list/">支付信息</a></li>
+
+
+  </ul>
+
+{% endblock %}
+
+
+{% block js %}
+
+function redirectToAlipay(id) {
+
+window.open('/user/' + id + '/pay/');
+}
+{% endblock %}
+{% block thead %}
+          <tr>
+              <th>ID</th>
+              <th>订单号</th>
+              <th>金额</th>
+              <td>用户</td>
+              <th>车牌号</th>
+              <th>创建时间</th>
+              <th>是否已支付</th>
+
+<!--              <th>操作</th>-->
+          </tr>
+
+{% endblock %}
+
+{% block tbody %}
+
+        {% for obj in queryset %}
+          <tr>
+              <td>{{ obj.id }}</td>
+              <td>{{ obj.order_number }}</td>
+              <td>{{ obj.amount }}</td>
+              <td>{{ obj.plate.user.username }}</td>
+              <td>{{ obj.plate.LicensePlate}}</td>
+              <td>{{ obj.time }}</td>
+              <td>{{ obj.get_status_display }}
+
+<!--              <td>-->
+<!--              <button onclick="redirectToAlipay({{ obj.id }})" class="btn btn-primary btn-xs">支付</button>-->
+<!--            </td>-->
+          </tr>
+        {% endfor %}
+
+{% endblock %}

@@ -1,0 +1,36 @@
+{% extends "list.html" %}
+
+ {% block head %}
+
+  <ul class="nav navbar-nav">
+        <li><a href="/user/list/">用户信息</a></li>
+        <li><a href="/user/time/">行车记录</a></li>
+        <li><a href="/user/pay/list/">支付信息</a></li>
+  </ul>
+
+{% endblock %}
+
+
+{% block thead %}
+          <tr>
+              <th>ID</th>
+              <th>车牌号</th>
+              <th>进入时间</th>
+              <th>离开时间</th>
+          </tr>
+
+{% endblock %}
+
+
+{% block tbody %}
+
+        {% for obj in queryset %}
+          <tr>
+              <td>{{ obj.id }}</td>
+              <th>{{ obj.LicensePlate }}</th>
+              <td>{{ obj.created_in }}</td>
+              <td>{{ obj.created_out }}</td>
+          </tr>
+        {% endfor %}
+
+{% endblock %}

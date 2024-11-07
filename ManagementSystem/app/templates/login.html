@@ -1,0 +1,66 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="{% static 'plugins/bootstrap-3.4.1/css/bootstrap.css' %}">
+
+    <style>
+        .account{
+        width:500px;
+        border: 1px solid #dddddd;
+        border-radius:5px;
+        box-shadow:5px 5px 5px #aaa;
+        height:400px;
+        margin-left:auto;
+        margin-right:auto;
+        margin-top:200px;
+        padding:20px 40px;
+
+        }
+        .account h1{
+        text-align:center;
+        }
+    </style>
+</head>
+<body>
+<div class="account">
+    <h1>用户登录</h1>
+    <form method="post" novalidate>
+        {% csrf_token %}
+  <div class="form-group">
+    <label >用户名</label>
+    {{ form.username }}
+      <span style="color:red;">{{form.username.errors.0}}</span>
+  </div>
+  <div class="form-group">
+    <label >密码</label>
+    {{ form.password }}
+        <span style="color:red;">{{form.password.errors.0}}</span>
+  </div>
+        <div class="form-group">
+            <label >图片验证码</label>
+            <div class="row">
+                <div class="col-xs-7">
+                    {{ form.code }}
+                    <span style="color:red;">{{form.code.errors.0}}</span>
+                </div>
+                <div class="col-xs-5">
+                    <img src="/image/code/" alt="Example Image">
+<!--                    <img src="image/code/" id="image_code" alt="">-->
+                </div>
+            </div>
+        </div>
+    <button type="submit" class="btn btn-primary">登录</button>
+        <a href="/register/">注册</a>
+<!--        <a href="/forgotPwd/">忘记密码</a>-->
+
+
+</form>
+
+</div>
+<script src="{% static 'js/jquery-3.7.1.min.js' %}"></script>
+<script src="{% static 'plugins/bootstrap-3.4.1/js/bootstrap.min.js' %}"></script>
+</body>
+</html>

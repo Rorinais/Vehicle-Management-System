@@ -1,0 +1,60 @@
+{% extends "list.html" %}
+
+ {% block head %}
+
+  <ul class="nav navbar-nav">
+        <li><a href="/admin/list/">用户信息</a></li>
+        <li><a href="/admin/time/">行车记录</a></li>
+        <li><a href="/show/video/">实时监控</a></li>
+        <li><a href="/admin/pay/list/">支付信息</a></li>
+
+
+  </ul>
+
+{% endblock %}
+
+{% block js %}
+    function confirmDelete(id) {
+      var result = confirm("确定要删除吗？");
+      if (result) {
+        // 用户点击了确认按钮，跳转到删除链接
+        window.location.href = "/admin/" + id + "/time/";
+      } else {
+        // 用户点击了取消按钮，不执行跳转操作
+      }
+    }
+
+{% endblock %}
+
+
+{% block thead %}
+          <tr>
+              <th>ID</th>
+              <th>车牌号</th>
+              <th>进入时间</th>
+              <th>离开时间</th>
+              <th>用户</th>
+              <th>操作</th>
+
+          </tr>
+
+{% endblock %}
+
+
+{% block tbody %}
+
+        {% for obj in queryset %}
+          <tr>
+              <td>{{ obj.id }}</td>
+              <th>{{ obj.LicensePlate }}</th>
+              <td>{{ obj.created_in }}</td>
+              <td>{{ obj.created_out }}</td>
+              <td>{{ obj.user.username }}</td>
+              <td>
+<!--                  <a href="/admin/{{obj.id}}/time/"  class="btn btn-danger btn-xs">删除</a>-->
+                  <button  onclick="confirmDelete({{ obj.id }})" class="btn btn-danger btn-xs">删除</button>
+            </td>
+          </tr>
+        {% endfor %}
+
+{% endblock %}

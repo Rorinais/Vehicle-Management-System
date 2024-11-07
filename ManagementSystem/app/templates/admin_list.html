@@ -1,0 +1,70 @@
+
+{% extends "list.html" %}
+
+ {% block head %}
+  <ul class="nav navbar-nav">
+        <li><a href="/admin/list/">用户信息</a></li>
+        <li><a href="/admin/time/">行车记录</a></li>
+        <li><a href="/show/video/">实时监控</a></li>
+        <li><a href="/admin/pay/list/">支付信息</a></li>
+  </ul>
+{% endblock %}
+
+{% block js %}
+    function confirmDelete(id) {
+      var result = confirm("确定要删除吗？");
+      if (result) {
+        // 用户点击了确认按钮，跳转到删除链接
+        window.location.href = "/admin/" + id + "/delete/";
+      } else {
+        // 用户点击了取消按钮，不执行跳转操作
+      }
+    }
+
+{% endblock %}
+
+
+
+
+{% block create %}
+      <a href="/admin/add/" class="btn btn-primary">
+        <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
+        新建
+      </a>
+
+{% endblock %}
+
+{% block thead %}
+          <tr>
+              <th>ID</th>
+              <th>账号</th>
+              <th>密码</th>
+              <th>性别</th>
+              <th>创建时间</th>
+              <th>管理员</th>
+              <th>操作</th>
+          </tr>
+{% endblock %}
+
+
+{% block tbody %}
+
+        {% for obj in queryset %}
+          <tr>
+              <td>{{ obj.id }}</td>
+              <td>{{ obj.username }}</td>
+<!--              <td>{{ obj.password }}</td>-->
+              <td>**********</td>
+              <td>{{ obj.get_sex_display }}</td>
+              <td>{{ obj.created_time }}</td>
+              <td>{{ obj.get_admin_display }}</td>
+
+              <td>
+                  <a href="/admin/{{ obj.id }}/edit/"  class="btn btn-primary btn-xs" >编辑</a>
+                    <button  onclick="confirmDelete({{ obj.id }})" class="btn btn-danger btn-xs">删除</button>
+<!--                  <a href="/admin/{{ obj.id }}/delete/" class="btn btn-danger btn-xs">删除</a>-->
+              </td>
+          </tr>
+        {% endfor %}
+
+{% endblock %}

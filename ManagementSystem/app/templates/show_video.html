@@ -1,0 +1,119 @@
+
+{% extends "layout.html" %}
+{% block admin %}
+
+  <ul class="nav navbar-nav">
+        <li><a href="/admin/list/">用户信息</a></li>
+        <li><a href="/admin/time/">行车记录</a></li>
+        <li><a href="/show/video/">实时监控</a></li>
+        <li><a href="/admin/pay/list/">支付信息</a></li>
+
+
+  </ul>
+
+{% endblock %}
+
+{% block script %}
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+<script>
+
+setInterval(function() {
+    $.ajax({
+        url: "/get/txt/",
+        type: "GET",
+        dataType: "json",
+        success: function(data) {
+            // 清空 #message 元素的内容
+            $("#message1").empty();
+
+            $.each(data, function(key, value) {
+                var tag = $("<div>").text(value);
+                $("#message1").append(tag);
+                console.log("请求发送成功", value);
+            });
+        },
+        error: function(xhr, status, error) {
+            console.log("请求发送失败", error);
+        }
+    });
+}, 5000);
+
+setInterval(function() {
+    $.ajax({
+        url: "/get/out/",
+        type: "GET",
+        dataType: "json",
+        success: function(data) {
+            // 清空 #message 元素的内容
+            $("#message2").empty();
+
+            $.each(data, function(key, value) {
+                var tag = $("<div>").text(value);
+                $("#message2").append(tag);
+                console.log("请求发送成功", value);
+            });
+        },
+        error: function(xhr, status, error) {
+            console.log("请求发送失败", error);
+        }
+    });
+}, 5000);
+
+
+</script>
+
+<style>
+.box1 {
+    text-align: center;
+    background-color: red;
+    border-radius: 20px;
+    width: 800px;
+    height: 640px;
+    position: absolute;
+    left: 5%;
+    top: 45%;
+    transform: translate(0, -50%);
+}
+.box2 {
+
+	text-align: center;
+	background-color: red;
+	border-radius: 20px;
+	width: 800px;
+	height: 640px;
+	position: absolute;
+	left: 50%;
+	top: 45%;
+	transform: translate(0,-50%);
+}
+</style>
+
+
+{% endblock %}
+
+{% block video %}
+<div class="box1">
+            <img  src="{% url 'video' %}" alt="无信号源">
+        <ul>
+            {% for frame in data_dict.data_list %}
+                <li>{{ frame }}</li>
+            {% endfor %}
+        </ul>
+         <h1>入口</h1>
+        <div id="message1"></div>
+</div>
+
+<div class="box2">
+            <img  src="{% url 'out' %}" alt="无信号源">
+        <ul>
+            {% for frame in data_dict.frame_list %}
+                <li>{{ frame }}</li>
+            {% endfor %}
+        </ul>
+         <h1>出口</h1>
+        <div id="message2"></div>
+</div>
+
+{% endblock %}
+

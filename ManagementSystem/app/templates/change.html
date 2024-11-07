@@ -1,0 +1,45 @@
+
+{% extends "layout.html" %}
+{% block admin %}
+
+  <ul class="nav navbar-nav">
+        <li><a href="/admin/list/">用户信息</a></li>
+        <li><a href="/admin/time/">行车记录</a></li>
+        <li><a href="/show/video/">实时监控</a></li>
+        <li><a href="/admin/pay/list/">支付信息</a></li>
+
+  </ul>
+
+{% endblock %}
+{% block content %}
+<div class="container">
+    <div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">{{title}}</h3>
+  </div>
+
+
+  <form method="post" novalidate>
+    {% csrf_token %}
+
+
+     {% for field in form %}
+
+        <div class="form-group">
+            <label >
+                 {{field.label}}
+            </label>
+                   {{ field }}
+            <span style="color: red;">{{field.errors.0}}</span>
+       </div>
+
+    {% endfor %}
+
+
+      <button type="submit" class="btn btn-primary">保存</button>
+</form>
+
+</div>
+  </div>
+
+{% endblock %}

@@ -1,0 +1,55 @@
+{% extends "list.html" %}
+
+ {% block head %}
+
+  <ul class="nav navbar-nav">
+        <li><a href="/user/list/">用户信息</a></li>
+        <li><a href="/user/time/">行车记录</a></li>
+        <li><a href="/user/pay/list/">支付信息</a></li>
+  </ul>
+
+{% endblock %}
+
+
+{% block thead %}
+          <tr>
+              <th>ID</th>
+              <th>账号</th>
+              <th>密码</th>
+              <th>性别</th>
+              <th>创建时间</th>
+              <th>操作</th>
+          </tr>
+
+{% endblock %}
+{% block js %}
+
+{% endblock %}
+
+{% block create %}
+<form method="POST" action="{% url 'process_data' %}">
+  {% csrf_token %}
+    <h3>绑定车牌号</h3>
+  <input type="text" name="data">
+  <button type="submit">提交</button>
+</form>
+{% endblock %}
+{% block tbody %}
+
+        {% for obj in queryset %}
+          <tr>
+              <td>{{ obj.id }}</td>
+              <td>{{ obj.username }}</td>
+              <td>{{ obj.password }}</td>
+<!--              <td>**********</td>-->
+              <td>{{ obj.get_sex_display }}</td>
+              <td>{{ obj.created_time }}</td>
+              <td>
+                  <a href="/admin/{{ obj.id }}/edit/"  class="btn btn-primary btn-xs" >编辑</a>
+            </td>
+          </tr>
+        {% endfor %}
+
+
+
+{% endblock %}

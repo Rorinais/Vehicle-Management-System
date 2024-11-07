@@ -1,0 +1,32 @@
+
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="container">
+    <div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">新建</h3>
+  </div>
+
+
+  <form method="post">
+    {% csrf_token %}
+  <div class="form-group">
+        <label >昵称</label>
+    <input type="text" class="form-control"  placeholder="姓名" name="Name">
+    <label >电话</label>
+    <input type="text" class="form-control"  placeholder="电话" name="phone">
+    <label >车牌号</label>
+    <input type="text" class="form-control"  placeholder="车牌号" name="LicensePlate">
+    <label >车牌型号</label>
+    <input type="text" class="form-control"  placeholder="车牌型号" name="VehicleModel">
+    <label >车牌颜色</label>
+    <input type="text" class="form-control"  placeholder="车牌颜色" name="VehicleColor">
+  </div>
+      <button type="submit" class="btn btn-primary">保存</button>
+</form>
+
+</div>
+</div>
+
+{% endblock %}
